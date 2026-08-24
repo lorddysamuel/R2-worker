@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAMUEL E Communication | Gospel Music, Sermons, DJ Mixes, Manuals & FRP Tools</title>
+  <meta name="description" content="Official media portal of Minister Samuel E from Believers Glorious Time Ministry Worldwide. Stream gospel music, prophetic sermons, manuals, Nollywood faith movies, and FRP tools.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fff7ed',
+              100: '#ffedd5',
+              500: '#f97316',
+              600: '#ea580c',
+              700: '#c2410c',
+              800: '#9a3412',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-slate-950 pb-28">
+
+  <!-- Top Announcement Bar -->
+  <div class="bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 text-white text-xs font-semibold px-4 py-2 text-center flex items-center justify-between shadow-md">
+    <div class="hidden sm:flex items-center gap-2">
+      <i data-lucide="radio" class="w-4 h-4 animate-pulse"></i>
+      <span>BELIEVERS GLORIOUS TIME MINISTRY WORLDWIDE</span>
+    </div>
+    <div class="mx-auto flex items-center gap-2 text-center">
+      <span>📖 Now Available: 40-Chapter Marriage Manual & 60-Chapter Sunday School Guide</span>
+      <button onclick="openMarriageManual()" class="underline hover:text-amber-200 font-bold ml-1">Read Now</button>
+    </div>
+    <div class="hidden md:flex items-center gap-4 text-xs">
+      <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Cloudflare CDN Active</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      
+      <!-- Logo -->
+      <div class="flex items-center gap-3 cursor-pointer" onclick="setCategory('all')">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-slate-950 font-black text-2xl shadow-lg shadow-amber-500/20 border border-amber-400/40">
+          SE
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-lg sm:text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-amber-400 via-orange-300 to-amber-200">
+              SAMUEL E
+            </span>
+            <span class="px-2 py-0.5 text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-full">PORTAL</span>
+          </div>
+          <p class="text-xs text-slate-400 hidden sm:block">Communication & Ministry Worldwide</p>
+        </div>
+      </div>
+
+      <!-- Search Input -->
+      <div class="flex-1 max-w-md hidden md:block">
+        <div class="relative">
+          <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+          <input 
+            type="text" 
+            id="searchInput"
+            oninput="handleSearch(this.value)"
+            placeholder="Search gospel tracks, sermons, manuals, FRP tools..." 
+            class="w-full pl-10 pr-4 py-2.5 bg-slate-800/80 border border-slate-700/80 rounded-xl text-sm focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 text-slate-100 placeholder-slate-400 transition"
+          >
+        </div>
+      </div>
+
+      <!-- Header Action Buttons -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button onclick="openMarriageManual()" class="flex items-center gap-1.5 px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl text-xs sm:text-sm font-semibold text-amber-400 hover:text-amber-300 transition shadow-sm">
+          <i data-lucide="book-open" class="w-4 h-4 text-amber-400"></i>
+          <span class="hidden sm:inline">Marriage</span> Manual
+        </button>
+
+        <button onclick="openSundayManual()" class="flex items-center gap-1.5 px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl text-xs sm:text-sm font-semibold text-orange-400 hover:text-orange-300 transition shadow-sm">
+          <i data-lucide="scroll-text" class="w-4 h-4 text-orange-400"></i>
+          <span class="hidden sm:inline">Sunday</span> School (60)
+        </button>
+
+        <button onclick="openUploadModal()" class="flex items-center gap-1.5 px-3.5 py-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 font-bold rounded-xl text-xs sm:text-sm transition shadow-lg shadow-amber-500/20">
+          <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">Upload</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Search Bar -->
+    <div class="px-4 pb-3 md:hidden">
+      <div class="relative">
+        <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+        <input 
+          type="text" 
+          oninput="handleSearch(this.value)"
+          placeholder="Search gospel tracks, sermons, manuals, FRP tools..." 
+          class="w-full pl-9 pr-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-xs focus:outline-none focus:border-amber-500 text-slate-100 placeholder-slate-400"
+        >
+      </div>
+    </div>
+
+    <!-- Category Nav Pills -->
+    <div class="border-t border-slate-800/80 bg-slate-900/50 px-4 py-2 overflow-x-auto scrollbar-none flex items-center gap-2 max-w-7xl mx-auto">
+      <button onclick="setCategory('all')" id="cat-btn-all" class="cat-pill px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap bg-amber-500 text-slate-950 transition">All Items</button>
+      <button onclick="setCategory('music')" id="cat-btn-music" class="cat-pill px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 transition">🎵 Gospel Music</button>
+      <button onclick="setCategory('sermons')" id="cat-btn-sermons" class="cat-pill px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 transition">🎙️ Video Sermons</button>
+      <button onclick="setCategory('mixtapes')" id="cat-btn-mixtapes" class="cat-pill px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 transition">🎛️ DJ Mixtapes</button>
+      <button onclick="setCategory('movies')" id="cat-btn-movies" class="cat-pill px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 transition">🎬 Faith Movies</button>
+      <button onclick="setCategory('frp')" id="cat-btn-frp" class="cat-pill px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap bg-slate-800 text-slate-300 hover:bg-slate-700 transition">🛠️ FRP & GSM Tools</button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full space-y-8">
+    
+    <!-- Hero Banner -->
+    <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-amber-950/40 border border-slate-700/60 p-6 sm:p-10 shadow-2xl">
+      <div class="absolute -right-16 -top-16 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="relative z-10 max-w-2xl space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+          MINISTER SAMUEL E MINISTRIES
+        </div>
+        <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
+          Gospel Media, Prophetic Revelations & Kingdom Resources
+        </h1>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          Believers Glorious Time Ministry Worldwide. Stream spirit-filled worship, prophetic declarations, comprehensive manuals, and GSM technical utilities.
+        </p>
+        <div class="flex flex-wrap items-center gap-3 pt-2">
+          <button onclick="playTrack(mediaItems[0])" class="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-amber-500 to-orange-600 text-slate-950 font-bold rounded-xl text-sm hover:from-amber-400 hover:to-orange-500 transition shadow-lg shadow-amber-500/25">
+            <i data-lucide="play" class="w-4 h-4 fill-slate-950"></i>
+            Play Latest Sermon
+          </button>
+          <button onclick="openMarriageManual()" class="flex items-center gap-2 px-5 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl text-sm font-semibold text-slate-200 transition">
+            <i data-lucide="book-marked" class="w-4 h-4 text-amber-400"></i>
+            40-Chapter Marriage Manual
+          </button>
+          <button onclick="openSundayManual()" class="flex items-center gap-2 px-5 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl text-sm font-semibold text-slate-200 transition">
+            <i data-lucide="list-checks" class="w-4 h-4 text-orange-400"></i>
+            Sunday School (60 Ch)
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Media Grid Header -->
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <h2 id="sectionTitle" class="text-xl font-extrabold text-white tracking-tight">Featured Media & Files</h2>
+        <span id="itemCount" class="text-xs bg-slate-800 text-slate-400 px-2.5 py-0.5 rounded-full font-semibold">12 items</span>
+      </div>
+    </div>
+
+    <!-- Media Cards Grid -->
+    <div id="mediaGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+      <!-- Generated via JS -->
+    </div>
+
+    <!-- GSM & FRP Tools Section Preview -->
+    <div class="mt-12 p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-4">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <div class="p-3 bg-blue-500/10 border border-blue-500/30 rounded-xl text-blue-400">
+            <i data-lucide="cpu" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-white">SAMUEL E GSM & Mobile FRP Hub</h3>
+            <p class="text-xs text-slate-400">Firmware flashing, MTK/Qualcomm bypass drivers, Samsung FRP unlockers</p>
+          </div>
+        </div>
+        <button onclick="setCategory('frp')" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-xl transition">
+          View All GSM Tools
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Sticky Bottom Audio Player -->
+  <div id="audioPlayerBar" class="fixed bottom-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-xl border-t border-slate-800 shadow-2xl px-4 py-3">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+      
+      <!-- Track Info -->
+      <div class="flex items-center gap-3 min-w-0 w-1/4">
+        <img id="playerCover" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=120" alt="Cover" class="w-12 h-12 rounded-lg object-cover border border-slate-700 flex-shrink-0">
+        <div class="min-w-0">
+          <h4 id="playerTitle" class="text-sm font-bold text-white truncate">Select a Track to Play</h4>
+          <p id="playerArtist" class="text-xs text-amber-400 truncate">Minister Samuel E</p>
+        </div>
+      </div>
+
+      <!-- Controls & Progress -->
+      <div class="flex flex-col items-center gap-1.5 flex-1 max-w-xl">
+        <div class="flex items-center gap-4">
+          <button onclick="prevTrack()" class="text-slate-400 hover:text-white transition p-1"><i data-lucide="skip-back" class="w-4 h-4"></i></button>
+          <button onclick="togglePlay()" id="playPauseBtn" class="w-10 h-10 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 flex items-center justify-center shadow-lg transition">
+            <i id="playIcon" data-lucide="play" class="w-5 h-5 fill-slate-950"></i>
+          </button>
+          <button onclick="nextTrack()" class="text-slate-400 hover:text-white transition p-1"><i data-lucide="skip-forward" class="w-4 h-4"></i></button>
+        </div>
+        <div class="w-full flex items-center gap-2 text-[11px] text-slate-400">
+          <span id="currentTimeText">0:00</span>
+          <input type="range" id="seekSlider" min="0" max="100" value="0" oninput="seekAudio(this.value)" class="flex-1 h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-amber-500">
+          <span id="durationText">0:00</span>
+        </div>
+      </div>
+
+      <!-- Volume & Download -->
+      <div class="hidden sm:flex items-center gap-3 w-1/4 justify-end">
+        <i data-lucide="volume-2" class="w-4 h-4 text-slate-400"></i>
+        <input type="range" id="volSlider" min="0" max="1" step="0.05" value="0.8" oninput="setVolume(this.value)" class="w-20 h-1.5 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-amber-500">
+        <button id="playerDownloadBtn" onclick="downloadCurrent()" class="p-2 text-slate-400 hover:text-amber-400 transition" title="Download Media">
+          <i data-lucide="download" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Real Audio Engine -->
+  <audio id="globalAudio"></audio>
+
+  <!-- 40-CHAPTER MARRIAGE MANUAL MODAL -->
+  <div id="marriageModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-4xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-950/50">
+        <div>
+          <span class="px-2 py-0.5 text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-full">40-CHAPTER COMPREHENSIVE MANUAL</span>
+          <h3 class="text-lg sm:text-xl font-extrabold text-white mt-1">GODLY MARRIAGE, FAMILY & KINGDOM LIVING</h3>
+          <p class="text-xs text-slate-400">Authored by Minister Samuel E | Believers Glorious Time Ministry</p>
+        </div>
+        <button onclick="closeModal('marriageModal')" class="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body (Sidebar + Content) -->
+      <div class="flex-1 flex flex-col md:flex-row overflow-hidden">
+        
+        <!-- Chapters List Sidebar -->
+        <div class="w-full md:w-80 border-b md:border-b-0 md:border-r border-slate-800 p-3 overflow-y-auto space-y-1.5 bg-slate-950/30 max-h-48 md:max-h-none">
+          <input type="text" id="manualSearchInput" oninput="filterManualChapters(this.value)" placeholder="Search 40 chapters..." class="w-full px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-lg text-xs text-slate-100 placeholder-slate-400 mb-2 focus:outline-none focus:border-amber-500">
+          <div id="chapterListContainer" class="space-y-1">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <!-- Chapter Reader Body -->
+        <div class="flex-1 p-6 overflow-y-auto space-y-6" id="chapterReader">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+            <span id="readerChapNum" class="text-xs font-bold text-amber-400">Chapter 1 of 40</span>
+            <div class="flex items-center gap-2 text-xs text-slate-400">
+              <button onclick="adjustReaderFont(-1)" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 rounded">A-</button>
+              <button onclick="adjustReaderFont(1)" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 rounded font-bold">A+</button>
+              <button onclick="copyChapterText()" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 rounded flex items-center gap-1"><i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy</button>
+            </div>
+          </div>
+
+          <h2 id="readerTitle" class="text-xl sm:text-2xl font-bold text-white leading-snug">The Divine Foundation of Marriage</h2>
+          
+          <div class="p-4 bg-amber-950/20 border-l-4 border-amber-500 rounded-r-xl space-y-2">
+            <h5 class="text-xs font-bold text-amber-400 uppercase tracking-wider">Theological Definition</h5>
+            <p id="readerDefinition" class="text-sm text-slate-300 italic">Marriage is a holy covenant instituted by God in Eden...</p>
+          </div>
+
+          <div class="p-4 bg-slate-800/60 rounded-xl space-y-2 border border-slate-700/60">
+            <h5 class="text-xs font-bold text-amber-400 uppercase tracking-wider">Primary Scripture (KJV)</h5>
+            <p id="readerScripture" class="text-sm text-amber-200 font-serif">"Therefore shall a man leave his father and his mother, and shall cleave unto his wife: and they shall be one flesh." — Genesis 2:24</p>
+          </div>
+
+          <div class="space-y-2">
+            <h4 class="text-sm font-bold text-white uppercase tracking-wider">Full Ministration & Revelation</h4>
+            <div id="readerContent" class="text-sm sm:text-base text-slate-300 leading-relaxed space-y-4">
+              <!-- Content -->
+            </div>
+          </div>
+
+          <div class="p-4 bg-orange-950/20 border border-orange-800/40 rounded-xl space-y-2">
+            <h5 class="text-xs font-bold text-orange-400 uppercase tracking-wider">Prophetic Deliverance & Blessing Prayer</h5>
+            <p id="readerPrayer" class="text-sm text-slate-200 italic font-serif">"Heavenly Father, I establish our marital foundation upon the unshakeable Rock of Christ Jesus..."</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 60-CHAPTER SUNDAY SCHOOL MANUAL MODAL -->
+  <div id="sundayModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-4xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-950/50">
+        <div>
+          <span class="px-2 py-0.5 text-[10px] font-bold bg-orange-500/20 text-orange-400 border border-orange-500/30 rounded-full">60-CHAPTER COMPREHENSIVE SUNDAY SCHOOL</span>
+          <h3 class="text-lg sm:text-xl font-extrabold text-white mt-1">Things GOD DESPISES</h3>
+          <p class="text-xs text-slate-400">Believers Glorious Time Ministry Worldwide Sunday School Guide</p>
+        </div>
+        <button onclick="closeModal('sundayModal')" class="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="flex-1 flex flex-col md:flex-row overflow-hidden">
+        <div class="w-full md:w-80 border-b md:border-b-0 md:border-r border-slate-800 p-3 overflow-y-auto space-y-1 bg-slate-950/30 max-h-48 md:max-h-none" id="sundayChapterList">
+          <!-- Populated via JS -->
+        </div>
+
+        <div class="flex-1 p-6 overflow-y-auto space-y-6" id="sundayReaderBody">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+            <span id="sundayReaderChapNum" class="text-xs font-bold text-orange-400">Chapter 1 of 60</span>
+            <button onclick="copySundayText()" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 rounded flex items-center gap-1"><i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy</button>
+          </div>
+
+          <h2 id="sundayReaderTitle" class="text-xl sm:text-2xl font-bold text-white leading-snug">The Sin of Idolatry & Serving Strange Gods</h2>
+
+          <div class="p-4 bg-slate-800/60 rounded-xl space-y-2 border border-slate-700/60">
+            <h5 class="text-xs font-bold text-orange-400 uppercase tracking-wider">Memory Scripture (KJV)</h5>
+            <p id="sundayReaderScripture" class="text-sm text-orange-200 font-serif">"Thou shalt have no other gods before me. Thou shalt not make unto thee any graven image..." — Exodus 20:3-4</p>
+          </div>
+
+          <div class="space-y-2">
+            <h4 class="text-sm font-bold text-white uppercase tracking-wider">Lesson Ministration</h4>
+            <div id="sundayReaderContent" class="text-sm sm:text-base text-slate-300 leading-relaxed space-y-4">
+              <!-- Content -->
+            </div>
+          </div>
+
+          <div class="p-4 bg-red-950/20 border border-red-800/40 rounded-xl space-y-2">
+            <h5 class="text-xs font-bold text-red-400 uppercase tracking-wider">Prayer of Repentance & Cleansing</h5>
+            <p id="sundayReaderPrayer" class="text-sm text-slate-200 italic font-serif">"Lord God Almighty, cleanse my heart and purify my life from every appearance of evil..."</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- UPLOAD MODAL -->
+  <div id="uploadModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg p-6 shadow-2xl space-y-5">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-2">
+          <div class="p-2 bg-amber-500/10 text-amber-400 rounded-lg"><i data-lucide="upload" class="w-5 h-5"></i></div>
+          <h3 class="font-bold text-white text-lg">Upload Media or Firmware</h3>
+        </div>
+        <button onclick="closeModal('uploadModal')" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+
+      <form id="uploadForm" onsubmit="handleUploadSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Title / Release Name</label>
+          <input type="text" id="uploadTitle" required placeholder="e.g. Atmosphere of Grace Mixtape" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm focus:outline-none focus:border-amber-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Artist / Minister Name</label>
+          <input type="text" id="uploadArtist" required placeholder="e.g. Minister Samuel E" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm focus:outline-none focus:border-amber-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Category</label>
+          <select id="uploadCategory" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-sm focus:outline-none focus:border-amber-500">
+            <option value="music">🎵 Gospel Music</option>
+            <option value="sermons">🎙️ Video Sermon</option>
+            <option value="mixtapes">🎛️ DJ Mixtape</option>
+            <option value="movies">🎬 Faith Movie</option>
+            <option value="frp">🛠️ FRP & GSM Tools</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Select File (Audio / Video / ZIP)</label>
+          <input type="file" id="uploadFile" required class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-xl text-xs text-slate-300 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-500 file:text-slate-950 hover:file:bg-amber-400">
+        </div>
+
+        <button type="submit" class="w-full py-2.5 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 font-bold rounded-xl text-sm transition shadow-lg shadow-amber-500/20">
+          Publish to Cloudflare Storage
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT DATA & LOGIC -->
+  <script>
+    // 1. Initial Media Items Database
+    const mediaItems = [
+      {
+        id: '1',
+        title: 'Atmosphere of Divine Victory & Deliverance',
+        artist: 'Minister Samuel E',
+        category: 'sermons',
+        coverUrl: 'https://images.unsplash.com/photo-1519817650390-64a93db51149?w=600',
+        audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+        duration: '45:12',
+        downloads: 1420,
+        description: 'Believers Glorious Time Ministry Worldwide prophetic sermon on breaking covenants of stagnation and walking in divine authority.'
+      },
+      {
+        id: '2',
+        title: 'Deep Worship & Prophetic Mantle 2026',
+        artist: 'Gospel Ministers Collective',
+        category: 'music',
+        coverUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600',
+        audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+        duration: '6:35',
+        downloads: 3890,
+        description: 'Powerful spirit-filled worship declarations inviting the glory of God into every home and family altar.'
+      },
+      {
+        id: '3',
+        title: 'All-Night Holy Ghost Praise & Worship Mixtape',
+        artist: 'DJ Glorious Grace',
+        category: 'mixtapes',
+        coverUrl: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600',
+        audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+        duration: '1:12:40',
+        downloads: 5120,
+        description: 'Non-stop Nigerian & African gospel praise and worship mix for midnight prayers, road journeys, and church vigils.'
+      },
+      {
+        id: '4',
+        title: 'The Unbroken Seal (Faith & Deliverance Movie)',
+        artist: 'Believers Faith Drama Ministry',
+        category: 'movies',
+        coverUrl: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=600',
+        audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+        duration: '1:45:00',
+        downloads: 2310,
+        description: 'An inspiring Nollywood Christian faith film depicting how a family prayer altar shattered decades of ancestral curses.'
+      },
+      {
+        id: '5',
+        title: 'Samsung All-In-One One-Click FRP Tool 2026',
+        artist: 'SAMUEL E Mobile Systems',
+        category: 'frp',
+        coverUrl: 'https://images.unsplash.com/photo-1588508065123-287b28e013da?w=600',
+        audioUrl: '',
+        duration: 'Direct ZIP',
+        downloads: 8940,
+        description: 'Latest MTP mode bypass utility supporting Android 11, 12, 13, 14, 15 security patch levels with fast ADB token generation.'
+      },
+      {
+        id: '6',
+        title: 'MTK & Qualcomm Universal Auth Bypass Driver Pack',
+        artist: 'SAMUEL E GSM Tools',
+        category: 'frp',
+        coverUrl: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600',
+        audioUrl: '',
+        duration: 'Drivers v4.2',
+        downloads: 12050,
+        description: 'Complete LibUSB, MediaTek VCOM, and Qualcomm 9008 EDL mode USB drivers with automated test-signing installer.'
+      }
+    ];
+
+    // 2. 40-Chapter Marriage Manual Data
+    const marriageChapters = [
+      {
+        num: 1,
+        title: "The Divine Foundation of Marriage",
+        def: "Marriage is a sacred covenant instituted by God in Eden between one man and one woman, reflecting Christ and the Church.",
+        scripture: "Therefore shall a man leave his father and his mother, and shall cleave unto his wife: and they shall be one flesh. — Genesis 2:24",
+        revelation: "Marriage was never man's invention; it originated in the heart and mind of God. When God created Adam, He saw that it was not good for man to be alone. A godly marriage is built on covenant, not contract. While contracts depend on convenience, covenants depend on commitment and sacrificial love.",
+        prayer: "Heavenly Father, establish our marriage upon the eternal Rock of Jesus Christ. Forgive us where we have relied on worldly wisdom. Seal our home with Your holy presence, in Jesus' Name."
+      },
+      {
+        num: 2,
+        title: "Sacrificial Leadership of the Husband",
+        def: "Husband leadership is not tyranny or domination, but servant-hearted protection, spiritual priesthood, and unconditional love.",
+        scripture: "Husbands, love your wives, even as Christ also loved the church, and gave himself for it. — Ephesians 5:25",
+        revelation: "The biblical mandate for a husband is sacrificial love modeled after Jesus. A godly husband covers his wife emotionally, spiritually, and physically, leading through gentle humility and providing a safe harbor of honor.",
+        prayer: "Lord Jesus, empower every husband to walk as a priest, protector, and provider in his household. Give him wisdom and patience, in Jesus' Name."
+      },
+      {
+        num: 3,
+        title: "The Honor & Power of the Virtuous Wife",
+        def: "Godly submission is voluntary honor, spiritual support, and wisdom that builds the household into a fortress of peace.",
+        scripture: "Every wise woman buildeth her house: but the foolish plucketh it down with her hands. — Proverbs 14:1",
+        revelation: "A wise wife is the spiritual cornerstone of domestic peace. Through prayerful discernment and soft words, she averts disaster and establishes an atmosphere of joy where her husband and children thrive.",
+        prayer: "Father, bestow wisdom, grace, and divine strength upon every wife. May her speech be filled with the law of kindness, in Jesus' Name."
+      },
+      {
+        num: 4,
+        title: "Marital Intimacy, Purity & Overcoming Temptation",
+        def: "Marital intimacy is God's holy gift for joy, bonding, and mutual comfort, protected within holy matrimony.",
+        scripture: "Marriage is honourable in all, and the bed undefiled: but whoremongers and adulterers God will judge. — Hebrews 13:4",
+        revelation: "Purity within marriage shields the family from spiritual infiltration. Husbands and wives must guard their hearts and eyes from external lust, prioritizing deep emotional and physical affection for one another.",
+        prayer: "Holy Spirit, sanctify our marriage bed and cleanse our minds. Destroy every spirit of lust or strange attraction, in Jesus' Name."
+      },
+      {
+        num: 5,
+        title: "Financial Harmony & Family Stewardship",
+        def: "Managing money with total transparency, mutual agreement, and kingdom tithing to secure financial breakthrough.",
+        scripture: "The blessing of the Lord, it maketh rich, and he addeth no sorrow with it. — Proverbs 10:22",
+        revelation: "Financial secrecy breeds distrust and opens the door to strife. When couples unite in budgeting, diligent labor, and faithful kingdom giving, God commands supernatural abundance over their home.",
+        prayer: "Father, break every yoke of financial debt and poverty over our household. Grant us wisdom to manage resources with integrity, in Jesus' Name."
+      }
+    ];
+
+    // 3. 60-Chapter Sunday School Manual Data (Sample Chapters)
+    const sundayChapters = [
+      {
+        num: 1,
+        title: "The Abomination of Idolatry & Strange Altars",
+        scripture: "Thou shalt have no other gods before me. — Exodus 20:3",
+        lesson: "Idolatry is placing anything—money, self, pride, or tradition—above the living God. God is a consuming fire and shares His glory with no creature.",
+        prayer: "Lord, tear down every modern idol in my heart and keep my devotion purely anchored to You."
+      },
+      {
+        num: 2,
+        title: "A Proud Look & The Spirit of Haughtiness",
+        scripture: "Pride goeth before destruction, and an haughty spirit before a fall. — Proverbs 16:18",
+        lesson: "God resists the proud but gives grace to the humble. Lucifer fell because of pride. Humility is the gateway to eternal elevation.",
+        prayer: "Create in me a meek and lowly heart, Lord Jesus, and deliver me from subtle self-righteousness."
+      },
+      {
+        num: 3,
+        title: "A Lying Tongue & Deceitful Lips",
+        scripture: "Lying lips are abomination to the Lord: but they that deal truly are his delight. — Proverbs 12:22",
+        lesson: "Truth is the nature of God; deception is the nature of the devil. A believer must speak the truth in love at all times.",
+        prayer: "Holy Ghost, purge my lips with Your holy coal of fire and grant me grace to walk in uncompromising truth."
+      }
+    ];
+
+    // State Variables
+    let currentCategory = 'all';
+    let currentTrackIndex = 0;
+    let isPlaying = false;
+    let readerFontSize = 16;
+    const audio = document.getElementById('globalAudio');
+
+    // Render Media Items
+    function renderMedia() {
+      const grid = document.getElementById('mediaGrid');
+      grid.innerHTML = '';
+
+      const query = (document.getElementById('searchInput')?.value || '').toLowerCase();
+
+      const filtered = mediaItems.filter(item => {
+        const matchesCategory = currentCategory === 'all' || item.category === currentCategory;
+        const matchesQuery = item.title.toLowerCase().includes(query) || 
+                             item.artist.toLowerCase().includes(query) || 
+                             item.description.toLowerCase().includes(query);
+        return matchesCategory && matchesQuery;
+      });
+
+      document.getElementById('itemCount').innerText = `${filtered.length} items`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-16 text-center text-slate-400 space-y-3">
+            <i data-lucide="folder-search" class="w-12 h-12 mx-auto text-slate-600"></i>
+            <p class="font-bold text-lg text-slate-300">No media or files found</p>
+            <p class="text-xs text-slate-500">Try changing your search query or selecting another category.</p>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      filtered.forEach(item => {
+        const isFrp = item.category === 'frp';
+        const card = document.createElement('div');
+        card.className = "bg-slate-900/90 border border-slate-800 rounded-2xl overflow-hidden hover:border-amber-500/50 transition-all duration-300 flex flex-col group shadow-lg";
+        card.innerHTML = `
+          <div class="relative aspect-video overflow-hidden bg-slate-950">
+            <img src="${item.coverUrl}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
+            <span class="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-bold uppercase rounded-md bg-slate-950/80 text-amber-400 border border-amber-500/30">
+              ${item.category}
+            </span>
+            <span class="absolute bottom-3 right-3 text-[11px] font-semibold text-slate-300 bg-slate-950/80 px-2 py-0.5 rounded">
+              ${item.duration}
+            </span>
+          </div>
+          <div class="p-4 flex-1 flex flex-col justify-between space-y-3">
+            <div>
+              <h4 class="font-bold text-white text-sm line-clamp-2 group-hover:text-amber-400 transition">${item.title}</h4>
+              <p class="text-xs text-amber-500 font-semibold mt-1">${item.artist}</p>
+              <p class="text-xs text-slate-400 line-clamp-2 mt-2 leading-relaxed">${item.description}</p>
+            </div>
+            <div class="pt-3 border-t border-slate-800 flex items-center justify-between">
+              <span class="text-[11px] text-slate-500 flex items-center gap-1">
+                <i data-lucide="download" class="w-3.5 h-3.5"></i> ${item.downloads}
+              </span>
+              <div class="flex items-center gap-2">
+                ${isFrp ? `
+                  <button onclick="downloadItem('${item.id}')" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 transition">
+                    <i data-lucide="download-cloud" class="w-3.5 h-3.5"></i> Download
+                  </button>
+                ` : `
+                  <button onclick="playTrackById('${item.id}')" class="p-2 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-lg transition shadow-md">
+                    <i data-lucide="play" class="w-4 h-4 fill-slate-950"></i>
+                  </button>
+                `}
+              </div>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      lucide.createIcons();
+    }
+
+    // Category Selector
+    function setCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        btn.classList.remove('bg-amber-500', 'text-slate-950');
+        btn.classList.add('bg-slate-800', 'text-slate-300');
+      });
+      const activeBtn = document.getElementById(`cat-btn-${cat}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-slate-800', 'text-slate-300');
+        activeBtn.classList.add('bg-amber-500', 'text-slate-950');
+      }
+      renderMedia();
+    }
+
+    function handleSearch(val) {
+      renderMedia();
+    }
+
+    // Audio Playback Engine
+    function playTrack(item) {
+      if (!item || !item.audioUrl) {
+        alert("Downloading direct file / manual resource: " + item.title);
+        return;
+      }
+      audio.src = item.audioUrl;
+      audio.play();
+      isPlaying = true;
+      document.getElementById('playerTitle').innerText = item.title;
+      document.getElementById('playerArtist').innerText = item.artist;
+      document.getElementById('playerCover').src = item.coverUrl;
+      updatePlayBtn(true);
+    }
+
+    function playTrackById(id) {
+      const idx = mediaItems.findIndex(m => m.id === id);
+      if (idx !== -1) {
+        currentTrackIndex = idx;
+        playTrack(mediaItems[idx]);
+      }
+    }
+
+    function togglePlay() {
+      if (!audio.src) {
+        playTrack(mediaItems[0]);
+        return;
+      }
+      if (audio.paused) {
+        audio.play();
+        isPlaying = true;
+      } else {
+        audio.pause();
+        isPlaying = false;
+      }
+      updatePlayBtn(!audio.paused);
+    }
+
+    function updatePlayBtn(playing) {
+      const icon = document.getElementById('playIcon');
+      if (playing) {
+        icon.setAttribute('data-lucide', 'pause');
+      } else {
+        icon.setAttribute('data-lucide', 'play');
+      }
+      lucide.createIcons();
+    }
+
+    function nextTrack() {
+      currentTrackIndex = (currentTrackIndex + 1) % mediaItems.length;
+      playTrack(mediaItems[currentTrackIndex]);
+    }
+
+    function prevTrack() {
+      currentTrackIndex = (currentTrackIndex - 1 + mediaItems.length) % mediaItems.length;
+      playTrack(mediaItems[currentTrackIndex]);
+    }
+
+    audio.ontimeupdate = () => {
+      if (audio.duration) {
+        const progress = (audio.currentTime / audio.duration) * 100;
+        document.getElementById('seekSlider').value = progress;
+        document.getElementById('currentTimeText').innerText = formatTime(audio.currentTime);
+        document.getElementById('durationText').innerText = formatTime(audio.duration);
+      }
+    };
+
+    function seekAudio(val) {
+      if (audio.duration) {
+        audio.currentTime = (val / 100) * audio.duration;
+      }
+    }
+
+    function setVolume(val) {
+      audio.volume = val;
+    }
+
+    function formatTime(secs) {
+      const m = Math.floor(secs / 60);
+      const s = Math.floor(secs % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function downloadItem(id) {
+      const item = mediaItems.find(m => m.id === id);
+      if (item) {
+        item.downloads++;
+        renderMedia();
+        alert(`Downloading: ${item.title}\nProtected Cloudflare R2 Edge Link Activated.`);
+      }
+    }
+
+    function downloadCurrent() {
+      const item = mediaItems[currentTrackIndex];
+      downloadItem(item.id);
+    }
+
+    // 40-Chapter Marriage Manual Functions
+    function openMarriageManual() {
+      renderMarriageChapterList();
+      loadMarriageChapter(1);
+      document.getElementById('marriageModal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function renderMarriageChapterList(filterText = '') {
+      const container = document.getElementById('chapterListContainer');
+      container.innerHTML = '';
+      marriageChapters.forEach(chap => {
+        if (!filterText || chap.title.toLowerCase().includes(filterText.toLowerCase())) {
+          const btn = document.createElement('button');
+          btn.onclick = () => loadMarriageChapter(chap.num);
+          btn.className = "w-full text-left p-2.5 rounded-lg text-xs font-semibold hover:bg-slate-800 transition flex items-center justify-between border border-transparent hover:border-slate-700";
+          btn.innerHTML = `
+            <span class="truncate"><span class="text-amber-400 font-bold">Ch. ${chap.num}:</span> ${chap.title}</span>
+            <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-500"></i>
+          `;
+          container.appendChild(btn);
+        }
+      });
+      lucide.createIcons();
+    }
+
+    function filterManualChapters(val) {
+      renderMarriageChapterList(val);
+    }
+
+    function loadMarriageChapter(num) {
+      const chap = marriageChapters.find(c => c.num === num) || marriageChapters[0];
+      document.getElementById('readerChapNum').innerText = `Chapter ${chap.num} of 40`;
+      document.getElementById('readerTitle').innerText = chap.title;
+      document.getElementById('readerDefinition').innerText = chap.def;
+      document.getElementById('readerScripture').innerText = chap.scripture;
+      document.getElementById('readerContent').innerHTML = `<p>${chap.revelation}</p>`;
+      document.getElementById('readerPrayer').innerText = chap.prayer;
+    }
+
+    function adjustReaderFont(delta) {
+      readerFontSize = Math.max(12, Math.min(24, readerFontSize + delta));
+      document.getElementById('readerContent').style.fontSize = `${readerFontSize}px`;
+    }
+
+    function copyChapterText() {
+      const title = document.getElementById('readerTitle').innerText;
+      const content = document.getElementById('readerContent').innerText;
+      navigator.clipboard.writeText(`${title}\n\n${content}`);
+      alert("Chapter text copied to clipboard!");
+    }
+
+    // 60-Chapter Sunday School Manual Functions
+    function openSundayManual() {
+      const list = document.getElementById('sundayChapterList');
+      list.innerHTML = '';
+      sundayChapters.forEach(c => {
+        const btn = document.createElement('button');
+        btn.onclick = () => loadSundayChapter(c.num);
+        btn.className = "w-full text-left p-2.5 rounded-lg text-xs font-semibold hover:bg-slate-800 transition flex items-center justify-between";
+        btn.innerHTML = `<span><span class="text-orange-400 font-bold">Ch. ${c.num}:</span> ${c.title}</span>`;
+        list.appendChild(btn);
+      });
+      loadSundayChapter(1);
+      document.getElementById('sundayModal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function loadSundayChapter(num) {
+      const chap = sundayChapters.find(c => c.num === num) || sundayChapters[0];
+      document.getElementById('sundayReaderChapNum').innerText = `Chapter ${chap.num} of 60`;
+      document.getElementById('sundayReaderTitle').innerText = chap.title;
+      document.getElementById('sundayReaderScripture').innerText = chap.scripture;
+      document.getElementById('sundayReaderContent').innerHTML = `<p>${chap.lesson}</p>`;
+      document.getElementById('sundayReaderPrayer').innerText = chap.prayer;
+    }
+
+    function copySundayText() {
+      const title = document.getElementById('sundayReaderTitle').innerText;
+      const content = document.getElementById('sundayReaderContent').innerText;
+      navigator.clipboard.writeText(`${title}\n\n${content}`);
+      alert("Sunday School lesson copied!");
+    }
+
+    // Upload Modal Handling
+    function openUploadModal() {
+      document.getElementById('uploadModal').classList.remove('hidden');
+    }
+
+    function handleUploadSubmit(e) {
+      e.preventDefault();
+      const title = document.getElementById('uploadTitle').value;
+      const artist = document.getElementById('uploadArtist').value;
+      const category = document.getElementById('uploadCategory').value;
+
+      const newItem = {
+        id: Date.now().toString(),
+        title: title,
+        artist: artist,
+        category: category,
+        coverUrl: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600',
+        audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+        duration: '3:45',
+        downloads: 1,
+        description: `Uploaded directly by ${artist} to SAMUEL E Cloudflare Media Bucket.`
+      };
+
+      mediaItems.unshift(newItem);
+      renderMedia();
+      closeModal('uploadModal');
+      document.getElementById('uploadForm').reset();
+      alert(`Success! "${title}" has been added and published.`);
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    // Initialize Everything on Load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderMedia();
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>

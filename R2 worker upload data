@@ -1,0 +1,84 @@
+import { AwsClient } from "aws4fetch";
+
+export default {
+  async fetch(request, env) {
+    const origin = request.headers.get("Origin");
+
+    // Allow only your Pages site
+    if (origin !== "https://samuelemobile.pages.dev") {
+      return new Response("Forbidden", { status: 403 });
+    }
+
+    // Handle CORS preflight
+    if (request.method === "OPTIONS") {
+      return new Response(null, {
+        headers: {
+          "Access-Control-Allow-Origin": "https://samuelemobile.pages.dev",
+          "Access-Control-Allow-Methods": "POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type",
+        },
+      });
+    }
+
+    if (request.method !== "POST") {
+      return new Response("Method not allowed", { status: 405 });
+    }
+
+    try {
+      const { filename, contentType } = await request.json();
+
+      if (!filename || !contentType) {
+        return new Response("Missing filename or contentType", { status: 400 });
+      }
+
+      // Clean the filename
+      const cleanName = filename.replace(/[^a-zA-Z0-9._-]/g, "_");
+      const key = `uploads/\( {Date.now()}- \){cleanName}`;
+
+      const client = new AwsClient({
+        accessKeyId: env.R2_ACCESS_KEY_ID,
+        secretAccessKey: env.R2_SECRET_ACCESS_KEY,
+      });
+
+      const url = new URL(
+        `https://\( {env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com/ \){env.R2_BUCKET_NAME}/${key}`
+      );
+
+      // Presigned URL valid for 1 hour
+      url.searchParams.set("X-Amz-Expires", "3600");
+
+      const signed = await client.sign(
+        new Request(url, {
+          method: "PUT",
+          headers: {
+            "Content-Type": contentType,
+          },
+        }),
+        {
+          aws: { signQuery: true },
+        }
+      );
+
+      return new Response(
+        JSON.stringify({
+          uploadUrl: signed.url,
+          key: key,
+        }),
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "https://samuelemobile.pages.dev",
+          },
+        }
+      );
+    } catch (err) {
+      return new Response(JSON.stringify({ error: err.message }), {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "https://samuelemobile.pages.dev",
+        },
+      });
+    }
+  },
+};
